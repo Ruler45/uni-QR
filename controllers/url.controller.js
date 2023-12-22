@@ -16,17 +16,23 @@ const handleUrlShorten = async (req, res) => {
       originalUrl: originalUrl,
     });
 
-    return res
-      .status(201)
-      .json({ message: `URL successfully shortened to ${req.originalUrl}/${urlCode}` });
+    return res.status(201).json({
+      message: `URL successfully shortened to ${req.originalUrl}/${urlCode}`,
+      shortUrl: `${req.originalUrl}/${urlCode}`,
+      originalUrl: originalUrl
+    });
   } catch {
-   const url= await Url.findOne({originalUrl:originalUrl});
+    const url = await Url.findOne({ originalUrl: originalUrl });
 
-   if(url){
-       return res.status(403).json({message: "URL already exists", shortUrl: `${req.originalUrl}/${url.shortUrl}`  })
-   }
+    if (url) {
+      return res
+        .status(403)
+        .json({
+          message: "URL already exists",
+          shortUrl: `${req.originalUrl}/${url.shortUrl}`,
+        });
+    }
     return res.status(500).json("Something went wrong");
-
   }
 };
 

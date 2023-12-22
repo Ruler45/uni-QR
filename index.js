@@ -2,11 +2,14 @@ import express from "express";
 import urlRoute from "./routes/url.route.js";
 import connectDB from "./db.js";
 import dotenv from "dotenv";
+import cors from "cors";
+
 
 dotenv.config();
 
 const port=process.env.PORT || 4000;
 const app = new express();
+app.use(cors());
 app.use(express.json());
 app.use("/api/url", urlRoute);
 

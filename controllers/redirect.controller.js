@@ -5,11 +5,11 @@ const handleRidirect = async (req,res)=>{
         const url = await Url.findOne({shortUrl: shortUrl})
         if(url){
             res.redirect(url.originalUrl)
-            try{
-                const update= await Url.updateOne({shortUrl:shortUrl},{totalClicks:url.totalClicks+1})
-            }catch{
+            // try{
+            //     const update= await Url.updateOne({shortUrl:shortUrl},{totalClicks:url.totalClicks+1})
+            // }catch{
                 
-            }
+            // }
             
         }
         else{

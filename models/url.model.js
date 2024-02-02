@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const urlSchema = new mongoose.Schema({
-    shortUrl: {
+    qrUrl: {
         type: String,
         required: true,
         unique: true,

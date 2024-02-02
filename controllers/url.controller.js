@@ -3,22 +3,21 @@ import { Url } from "../models/url.model.js";
 
 const handleUrlShorten = async (req, res) => {
   const urlCode = nanoid(6);
-  console.log(req.originalUrl);
   if (!req.body) {
     return res.status(400).json("URL is required");
   }
   const { originalUrl } = req.body;
 
-  console.log(req.body);
+  // console.log(req.body);
   try {
     await Url.create({
-      shortUrl: urlCode,
+      qrUrl: urlCode,
       originalUrl: originalUrl,
     });
 
     return res.status(201).json({
-      message: `URL successfully shortened to ${req.originalUrl}/${urlCode}`,
-      shortUrl: `${req.originalUrl}/${urlCode}`,
+      message: `qrURL successfully generated to ${req.hostname}${req.originalUrl}/${urlCode}`,
+      qrUrl: `${req.hostname}${req.originalUrl}/${urlCode}`,
       originalUrl: originalUrl
     });
   } catch {
@@ -29,7 +28,7 @@ const handleUrlShorten = async (req, res) => {
         .status(403)
         .json({
           message: "URL already exists",
-          shortUrl: `${req.originalUrl}/${url.shortUrl}`,
+          qrUrl: `${req.hostname}${req.originalUrl}/${url.qrUrl}`,
         });
     }
     return res.status(500).json("Something went wrong");

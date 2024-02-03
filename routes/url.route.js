@@ -13,9 +13,9 @@ router.get("/",async(req,res)=>{
 });
 
 router.post("/manage/:qrUrl",async(req,res)=>{
-    const shortUrl = req.params.shortUrl;
+    const shortUrl = req.params.qrUrl;
     try{
-        const update= await Url.updateOne({shortUrl:shortUrl},{originalUrl:req.body.originalUrl})
+        const update= await Url.updateOne({qrUrl:shortUrl},{originalUrl:req.body.originalUrl})
        return res.status(202).json(update);
     }catch{
         return res.status(500).json({message: "somethimg went wrong"})
